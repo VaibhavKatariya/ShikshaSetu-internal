@@ -1,11 +1,14 @@
-"use client"
+"use client";
+
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Menu, X, ChevronRight, Facebook, Linkedin, Twitter, Sun, Moon } from 'lucide-react'
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     if (darkMode) {
@@ -17,6 +20,14 @@ export default function LandingPage() {
 
   const toggleTheme = () => {
     setDarkMode(!darkMode)
+  }
+
+  const handleLearnerSignIn = () => {
+    router.push('/learner/signin')
+  }
+
+  const handleLearnerSignUp = () => {
+    router.push('/learner/signup')
   }
 
   return (
@@ -35,10 +46,10 @@ export default function LandingPage() {
               <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Contact</Link>
             </div>
             <div className="hidden md:flex items-center space-x-4">
-              <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</Link>
-              <Link href="#" className="bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 py-2 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
+              <button onClick={handleLearnerSignIn} className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</button>
+              <button onClick={handleLearnerSignUp} className="bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 py-2 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
                 Get Started
-              </Link>
+              </button>
             </div>
             <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="text-gray-800 dark:text-white" /> : <Menu className="text-gray-800 dark:text-white" />}
@@ -50,10 +61,10 @@ export default function LandingPage() {
               <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Features</Link>
               <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">About Us</Link>
               <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Contact</Link>
-              <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</Link>
-              <Link href="#" className="block py-2 mt-4 bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
+              <button onClick={handleLearnerSignIn} className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</button>
+              <button onClick={handleLearnerSignUp} className="block py-2 mt-4 bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
                 Get Started
-              </Link>
+              </button>
             </div>
           )}
         </header>
@@ -69,9 +80,9 @@ export default function LandingPage() {
                 Join our community of passionate educators and eager learners.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Link href="#" className="bg-emerald-600 dark:bg-electric-green text-stone-100 px-6 py-3 rounded-md hover:bg-emerald-700 dark:hover:bg-electric-green-600 transition-colors flex items-center justify-center">
+                <button onClick={handleLearnerSignUp} className="bg-emerald-600 dark:bg-electric-green text-stone-100 px-6 py-3 rounded-md hover:bg-emerald-700 dark:hover:bg-electric-green-600 transition-colors flex items-center justify-center">
                   Start Learning Now <ChevronRight className="ml-2" />
-                </Link>
+                </button>
                 <Link href="#" className="border-2 border-rose-500 dark:border-electric-pink text-rose-500 dark:text-electric-pink px-6 py-3 rounded-md hover:bg-rose-500 dark:hover:bg-electric-pink hover:text-stone-100 transition-colors text-center">
                   Become an Instructor
                 </Link>
@@ -142,12 +153,12 @@ export default function LandingPage() {
               Whether you're here to learn or to share your knowledge, we have the tools to help you succeed.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link href="#" className="bg-indigo-600 dark:bg-electric-blue text-stone-100 px-8 py-4 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors text-lg font-semibold">
-                Join as a Learner
-              </Link>
-              <Link href="#" className="bg-rose-500 dark:bg-electric-pink text-stone-100 px-8 py-4 rounded-md hover:bg-rose-600 dark:hover:bg-electric-pink-600 transition-colors text-lg font-semibold">
-                Register as an Instructor
-              </Link>
+              <button onClick={handleLearnerSignIn} className="bg-indigo-600 dark:bg-electric-blue text-stone-100 px-8 py-4 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors text-lg font-semibold">
+                Sign In as a Learner
+              </button>
+              <button onClick={handleLearnerSignUp} className="bg-rose-500 dark:bg-electric-pink text-stone-100 px-8 py-4 rounded-md hover:bg-rose-600 dark:hover:bg-electric-pink-600 transition-colors text-lg font-semibold">
+                Sign Up as a Learner
+              </button>
             </div>
           </div>
         </section>
