@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '@/app/firebase/config';
+import {auth  } from "@/lib/firebase/config";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Link from 'next/link';
