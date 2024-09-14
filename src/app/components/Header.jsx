@@ -1,44 +1,105 @@
-import React from 'react'
+"use client"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { AnimatePresence } from 'framer-motion'
+import { Menu, Search } from 'lucide-react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import React, { useState } from "react"
+import useAuthHook from '../../hooks/authHooks'
 
-function Header({handleLearnerSignUp, handleLearnerSignIn, mobileMenuOpen, setMobileMenuOpen}) {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-stone-200 dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-sm transition-colors duration-300 shadow-md">
-          <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold text-indigo-700 dark:text-electric-blue">
-              EduTech
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Home</Link>
-              <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Features</Link>
-              <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">About Us</Link>
-              <Link href="#" className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Contact</Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-4">
-              <button onClick={handleLearnerSignIn} className="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</button>
-              <button onClick={handleLearnerSignUp} className="bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 py-2 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
-                Get Started
-              </button>
-            </div>
-            <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="text-gray-800 dark:text-white" /> : <Menu className="text-gray-800 dark:text-white" />}
-            </button>
-          </nav>
-          {mobileMenuOpen && (
-            <div className="md:hidden bg-stone-200 dark:bg-gray-800 p-4 transition-colors duration-300">
-              <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Home</Link>
-              <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Features</Link>
-              <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">About Us</Link>
-              <Link href="#" className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Contact</Link>
-              <button onClick={handleLearnerSignIn} className="block py-2 text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-electric-blue transition-colors">Login</button>
-              <button onClick={handleLearnerSignUp} className="block py-2 mt-4 bg-indigo-600 dark:bg-electric-blue text-stone-100 px-4 rounded-md hover:bg-indigo-700 dark:hover:bg-electric-blue-600 transition-colors">
-                Get Started
-              </button>
-            </div>
-          )}
-        </header>
-  )
+
+function Header({ user, auth }) {
+    const { handleLearnerSignIn, handleLearnerSignUp } = useAuthHook();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const navItems = ["Courses", "Categories", "Teach", "My Learning"]
+
+    return (
+        <>
+            {/* Header */}
+            <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                        <Link href="/" className="text-2xl font-bold text-[#1c1d1f] dark:text-white">
+                            EduTech
+                        </Link>
+                        <div className="hidden md:flex space-x-1">
+                            {navItems.map((item) => (
+                                <Button key={item} variant="ghost" className="text-[#1c1d1f] dark:text-white hover:text-[#5624d0] dark:hover:text-[#7c4dff]">
+                                    {item}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <form className="hidden md:flex relative">
+                            <Input
+                                type="search"
+                                placeholder="Search for courses"
+                                className="pl-10 pr-4 py-2 w-64 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#5624d0] dark:focus:border-[#7c4dff] focus:ring-[#5624d0] dark:focus:ring-[#7c4dff]"
+                            />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                        </form>
+                        {user ? (
+                            <Button variant="ghost" size="sm" className="text-[#1c1d1f] dark:text-white" onClick={() => auth.signOut()}>
+                                Log out
+                            </Button>
+                        ) : (
+                            <>
+                                <Button variant="ghost" size="sm" className="hidden md:flex text-[#1c1d1f] dark:text-white" onClick={handleLearnerSignIn}>
+                                    Log in
+                                </Button>
+                                <Button size="sm" className="bg-[#5624d0] dark:bg-[#7c4dff] hover:bg-[#4c1fb1] dark:hover:bg-[#6e45e2] text-white" onClick={handleLearnerSignUp}>
+                                    Sign up
+                                </Button>
+                            </>
+                        )}
+                        <Button variant="ghost" size="icon" className="md:hidden text-[#1c1d1f] dark:text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                            {mobileMenuOpen ? <X /> : <Menu />}
+                        </Button>
+                    </div>
+                </nav>
+                <AnimatePresence>
+                    {mobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
+                        >
+                            <div className="py-2 px-4">
+                                <Input
+                                    type="search"
+                                    placeholder="Search for courses"
+                                    className="w-full mb-2 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                                />
+                                {navItems.map((item) => (
+                                    <Button key={item} variant="ghost" className="w-full justify-start text-[#1c1d1f] dark:text-white hover:text-[#5624d0] dark:hover:text-[#7c4dff]">
+                                        {item}
+                                    </Button>
+                                ))}
+                                <div className="mt-2 space-y-2">
+                                    {user ? (
+                                        <Button variant="outline" className="w-full text-[#5624d0] dark:text-[#7c4dff] border-[#5624d0] dark:border-[#7c4dff]" onClick={() => auth.signOut()}>
+                                            Log out
+                                        </Button>
+                                    ) : (
+                                        <>
+                                            <Button variant="outline" className="w-full text-[#5624d0] dark:text-[#7c4dff] border-[#5624d0] dark:border-[#7c4dff]" onClick={handleLearnerSignIn}>
+                                                Log in
+                                            </Button>
+                                            <Button className="w-full bg-[#5624d0] dark:bg-[#7c4dff] hover:bg-[#4c1fb1] dark:hover:bg-[#6e45e2] text-white" onClick={handleLearnerSignUp}>
+                                                Sign up
+                                            </Button>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </header>
+        </>
+    )
 }
 
 export default Header
