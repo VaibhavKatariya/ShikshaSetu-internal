@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from '../firebase/config';
+import { auth, db } from '@/lib/firebase/config';
 import { useRouter } from 'next/navigation'
 import { IconFidgetSpinner } from '@tabler/icons-react'
 import Breadcrum from './components/Breadcrum';

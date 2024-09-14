@@ -2,7 +2,7 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/config';
+import { auth } from '@/lib/firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import "./account.modules.css";
