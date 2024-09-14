@@ -2,10 +2,11 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { AnimatePresence } from 'framer-motion'
-import { Menu, Search } from 'lucide-react'
+import { Menu, Search, X } from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from "react"
 import useAuthHook from '../../hooks/authHooks'
+import { motion } from 'framer-motion'
 
 
 function Header({ user, auth }) {
