@@ -1,7 +1,7 @@
 'use client';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { auth } from '../firebase/config';
+import { auth } from '@/lib/firebase/config';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { IconFidgetSpinner } from '@tabler/icons-react';

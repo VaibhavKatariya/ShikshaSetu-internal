@@ -2,7 +2,7 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/config';
+import { auth } from '@/lib/firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import "./account.modules.css";
@@ -64,7 +64,7 @@ const AccountDetails = () => {
             <Header button="home" />
             <div className="min-h-screen flex items-center justify-center bg-gray-900">
                 <div className="bg-gray-800 p-10 rounded-lg shadow-xl w-96">
-                    <p className="text-base text-white text-2xl mb-5">
+                    <p className="text-base text-white mb-5">
                         What should we call you? <br /> Definitely not <em>&quot;{user?.email}&quot;</em>, right? :)
                     </p>
                     <form onSubmit={handleProfileUpdate}>
