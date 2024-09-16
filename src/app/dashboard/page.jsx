@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 import { SignedIn } from '@/lib/firebase/components/signedIn';
 
 
-export default function Dashboard() {
+function Dashboard() {
 
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
@@ -435,3 +435,5 @@ export default function Dashboard() {
     </SignedIn>
   )
 }
+
+export default Dashboard
