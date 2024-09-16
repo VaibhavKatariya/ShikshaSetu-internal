@@ -8,6 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import useAuthHook from '../../hooks/authHooks'
+import hero from "@/app/assets/hero.jpeg"
+import anglea from "@/app/assets/angela.jpg"
+import ml from "@/app/assets/ml.jpg"
+import ds from "@/app/assets/ds.jpg"
+
+
 
 export default function StudentLandingPage() {
   const { handleLearnerSignUp } = useAuthHook();
@@ -18,24 +24,24 @@ export default function StudentLandingPage() {
       instructor: "Dr. Priya Sharma",
       rating: 4.8,
       students: 15000,
-      price: "₹4,999",
-      image: "/placeholder.svg?height=200&width=300",
+      price: "₹0",
+      image: ml.src,
     },
     {
       title: "Full Stack Web Development",
       instructor: "Rahul Verma",
       rating: 4.9,
       students: 20000,
-      price: "₹5,999",
-      image: "/placeholder.svg?height=200&width=300",
+      price: "₹0",
+      image: anglea.src,
     },
     {
       title: "Data Science Masterclass",
       instructor: "Dr. Amit Patel",
       rating: 4.7,
       students: 12000,
-      price: "₹5,499",
-      image: "/placeholder.svg?height=200&width=300",
+      price: "₹0",
+      image: ds.src,
     },
   ];
 
@@ -115,7 +121,7 @@ export default function StudentLandingPage() {
             </div>
             <div className="md:w-1/2">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src= {hero}
                 alt="Students learning online"
                 className="rounded-lg shadow-lg"
                 width={600}
@@ -195,7 +201,7 @@ export default function StudentLandingPage() {
                   <Image
                     src={course.image}
                     alt={course.title}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-50  object-cover"
                     width={300}
                     height={200}
                   />

@@ -11,6 +11,7 @@ import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, L
 import { BookOpen, Clock, Award, Zap, Users, Target, TrendingUp, Gift } from 'lucide-react'
 import logo from "@/app/assets/logo.svg"
 
+
 export default function Dashboard() {
   // Existing dummy data
   const overallProgress = 75

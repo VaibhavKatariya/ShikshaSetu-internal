@@ -1,4 +1,5 @@
-"use client"
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { AnimatePresence } from 'framer-motion'
@@ -8,7 +9,8 @@ import React, { useState } from "react"
 import useAuthHook from '../../hooks/authHooks'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-
+import Image from 'next/image'
+import logo from "@/app/assets/logo.png"
 
 function Header({ user, auth }) {
     const { handleLearnerSignIn, handleLearnerSignUp } = useAuthHook();
@@ -23,8 +25,18 @@ function Header({ user, auth }) {
             <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                        <Link href="/" className="text-2xl font-bold text-[#1c1d1f] dark:text-white">
-                            EduTech
+                        <Link href="/" className="flex items-center">
+                            <Image
+                                src={logo}
+                                alt="Shiksha Setu Logo"
+                                width={200}
+                                height={50}
+                                className="mr-4"
+                            />
+                            <div className="hidden lg:block">
+                                <h1 className="text-xl font-bold text-[#1c1d1f] dark:text-white">Shiksha Setu</h1>
+                                <p className="text-xs text-[#6a6f73] dark:text-gray-400">विद्या तत्त्व ज्योतिस्मः - Knowledge is the essence of light</p>
+                            </div>
                         </Link>
                         <div className="hidden md:flex space-x-1">
                             {navItems.filter(item => item !== "Teach").map((item) => (

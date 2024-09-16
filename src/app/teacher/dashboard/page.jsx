@@ -17,7 +17,6 @@ import logo from "@/app/assets/logo.png"
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import html2canvas from 'html2canvas'
-import Router from 'next/navigation'
 
 export default function EnhancedTeacherDashboard() {
   // Existing dummy data (unchanged)
@@ -177,7 +176,7 @@ export default function EnhancedTeacherDashboard() {
           />
           <div>
             <h1 className="text-3xl font-bold text-[#1c1d1f]">Shiksha Setu Enhanced Teacher Dashboard</h1>
-            <p className="text-sm text-[#6a6f73]">विद्या ददाति विनयम् - Knowledge Gives Humility</p>
+            <p className="text-sm text-[#6a6f73]">विद्या तत्त्व ज्योतिस्मः - Knowledge is the essence of light</p>
           </div>
         </div>
         <div className="flex items-center space-x-4">
