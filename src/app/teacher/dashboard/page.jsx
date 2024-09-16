@@ -200,7 +200,7 @@ export default function EnhancedTeacherDashboard() {
       <Alert className="mb-6 bg-[#a435f0] text-white">
         <Gift className="h-4 w-4" />
         <AlertTitle>Teacher Spotlight</AlertTitle>
-        <AlertDescription>Congratulations! You're in the top 5% of teachers this month. Keep up the excellent work!</AlertDescription>
+        <AlertDescription>Congratulations! You&apos;re in the top 5% of teachers this month. Keep up the excellent work!</AlertDescription>
       </Alert>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -555,19 +555,19 @@ export default function EnhancedTeacherDashboard() {
             <ul className="space-y-2">
               <li className="flex items-center text-sm">
                 <Bell className="h-4 w-4 mr-2 text-[#a435f0]" />
-                <span>New student feedback received for "Data Science" course</span>
+                <span>New student feedback received for &apos;Data Science&apos; course</span>
               </li>
               <li className="flex items-center text-sm">
                 <Clock className="h-4 w-4 mr-2 text-[#a435f0]" />
-                <span>Course review for "Web Development" due in 2 days</span>
+                <span>Course review for &apos;Web Development&apos; due in 2 days</span>
               </li>
               <li className="flex items-center text-sm">
                 <Target className="h-4 w-4 mr-2 text-[#a435f0]" />
-                <span>You're close to reaching 1500 total students!</span>
+                <span>You&apos;re close to reaching 1500 total students!</span>
               </li>
               <li className="flex items-center text-sm">
                 <Award className="h-4 w-4 mr-2 text-[#a435f0]" />
-                <span>Congratulations! Your "Machine Learning" course has been featured on the homepage.</span>
+                <span>Congratulations! Your &apos;Machine Learning&apos; course has been featured on the homepage.</span>
               </li>
             </ul>
           </CardContent>

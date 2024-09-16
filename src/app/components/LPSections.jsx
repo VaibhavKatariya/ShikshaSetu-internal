@@ -103,7 +103,7 @@ export default function StudentLandingPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-lg mb-8 text-gray-600 dark:text-gray-300"
               >
-                Bridge the gap between education and employment. Join Shiksha Setu to gain the skills that matter in today's job market.
+                Bridge the gap between education and employment. Join Shiksha Setu to gain the skills that matter in today&apos;s job market.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -156,7 +156,7 @@ export default function StudentLandingPage() {
             Shiksha Setu: Your Bridge to Employment
           </h2>
           <p className="text-lg mb-8 text-center text-gray-600 dark:text-gray-300">
-            We're here to change these statistics. With Shiksha Setu, you'll gain the skills and experience needed to thrive in today's job market.
+            We&apos;re here to change these statistics. With Shiksha Setu, you&apos;ll gain the skills and experience needed to thrive in today&apos;s job market.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
@@ -234,7 +234,7 @@ export default function StudentLandingPage() {
             Government of Delhi Initiative
           </h2>
           <p className="text-lg mb-8 text-center text-gray-600 dark:text-gray-300">
-            Shiksha Setu is proud to be a part of the Government of Delhi's initiative to bridge the gap between education and employment.
+            Shiksha Setu is proud to be a part of the Government of Delhi&apos;s initiative to bridge the gap between education and employment.
           </p>
           <div className="flex justify-center">
             <Card className="max-w-2xl">
@@ -246,7 +246,7 @@ export default function StudentLandingPage() {
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                    <span>Aligned with the Delhi government's vision for skill development</span>
+                    <span>Aligned with the Delhi government&apos;s vision for skill development</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
@@ -266,7 +266,7 @@ export default function StudentLandingPage() {
             Our Industry Partners
           </h2>
           <p className="text-lg mb-8 text-center text-gray-600 dark:text-gray-300">
-            We've partnered with leading companies to provide you with internship opportunities and a direct path to employment.
+            We&apos;ve partnered with leading companies to provide you with internship opportunities and a direct path to employment.
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8">
             {partnerCompanies.map((company, index) => (
@@ -288,7 +288,7 @@ export default function StudentLandingPage() {
       <section className="py-20 bg-[#5624d0] dark:bg-[#7c4dff] text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-8">Start Your Journey to Success Today</h2>
-          <p className="text-xl mb-8">Join Shiksha Setu and gain the skills you need to thrive in today's job market.</p>
+          <p className="text-xl mb-8">Join Shiksha Setu and gain the skills you need to thrive in today&apos;s job market.</p>
           <Button
             size="lg"
             variant="secondary"
