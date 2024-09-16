@@ -19,7 +19,6 @@ export default function SignUpPage() {
   const router = useRouter()
 
   const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [phoneError, setPhoneError] = useState('')
@@ -37,10 +36,6 @@ export default function SignUpPage() {
   }, [email])
 
   useEffect(() => {
-    setPhoneError(phoneNumber && phoneNumber.length !== 10 ? 'Phone number must be exactly 10 digits long' : '')
-  }, [phoneNumber])
-
-  useEffect(() => {
     setPasswordError(password && password.length < 6 ? 'Password must be at least 6 characters long' : '')
   }, [password])
 
@@ -48,17 +43,13 @@ export default function SignUpPage() {
     e.preventDefault()
     setError('')
 
-    if (emailError || phoneError || passwordError) {
+    if (emailError || passwordError) {
       setError('Please correct the errors in the form')
       return
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      await setDoc(doc(db, 'users', userCredential.user.uid), {
-        email,
-        phoneNumber,
-      })
+      await createUserWithEmailAndPassword(auth, email, password)
       router.push('/dashboard')
     } catch (error) {
       setError('Failed to create an account. Please try again.')
@@ -101,20 +92,6 @@ export default function SignUpPage() {
                 )}
               </div>
               <div>
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-[#1c1d1f] mb-1">
-                  Phone Number
-                </label>
-                <Input
-                  id="phoneNumber"
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  required
-                  className={`w-full ${phoneError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-[#5624d0] focus:ring-[#5624d0]'}`}
-                />
-                {phoneError && (
-                  <p className="mt-1 text-sm text-red-500">{phoneError}</p>
-                )}
               </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-[#1c1d1f] mb-1">

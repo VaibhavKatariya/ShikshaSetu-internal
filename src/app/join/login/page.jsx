@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/lib/firebase/config'
@@ -21,6 +21,7 @@ export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [checkingVerification, setCheckingVerification] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -36,7 +37,26 @@ export default function LoginPage() {
     }
   }
 
-  if (loading) {
+  useEffect(() => {
+    const checkEmailVerification = async () => {
+      if (user) {
+        setCheckingVerification(true); // Start spinner for verification check
+        await user.reload(); // Reload user data to check verification status
+        if (user.emailVerified) {
+          router.push('/dashboard'); // Redirect to dashboard if email is verified
+        } else {
+          router.push('/verifyEmail'); // Redirect to verify email if not verified
+        }
+        setCheckingVerification(false); // Stop spinner
+      }
+    };
+
+    if (user) {
+      checkEmailVerification();
+    }
+  }, [user, router]);
+
+  if (loading || checkingVerification) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8f9fb]">
         <IconFidgetSpinner className='animate-spin w-12 h-12 text-[#5624d0]' />
@@ -44,10 +64,10 @@ export default function LoginPage() {
     )
   }
 
-  if (user) {
-    router.push('/dashboard')
-    return null
-  }
+  // if (user) {
+  //   router.push('/dashboard')
+  //   return null
+  // }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f9fb]">

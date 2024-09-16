@@ -1,23 +1,56 @@
 'use client'
 
-import React, { useState } from 'react'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react'
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { auth } from '@/lib/firebase/config';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { BookOpen, Clock, Award, Zap, Users, Target, TrendingUp, Gift } from 'lucide-react'
-import logo from "@/app/assets/logo.svg"
+import Header from './components/Header'
+import { IconFidgetSpinner } from '@tabler/icons-react';
+import Footer from '../components/Footer';
+import { SignedIn } from '@/lib/firebase/components/signedIn';
 
 
 export default function Dashboard() {
+
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
+  const [signOut] = useSignOut(auth);
+
+  const handelSignOut = () => {
+    signOut();
+    router.push("/join/login")
+  }
+
+
+  // Check if user is verified and handle redirection
+  useEffect(() => {
+    const checkEmailVerification = async () => {
+      if (user) {
+        await user.reload(); // Reload user data to get the latest email verification status
+        if (!user.emailVerified) {
+          router.push('/verifyEmail'); // Redirect to email verification page if not verified
+        }
+      }
+    };
+
+    if (!loading && user) {
+      checkEmailVerification();
+    } else if (!loading && !user) {
+      router.push('/join/login'); // Redirect to sign-in if no user is logged in
+    }
+  }, [user, loading, router]);
+
   // Existing dummy data
   const overallProgress = 75
   const coursesEnrolled = 6
   const estimatedCompletion = '45 days'
-  const gyanStreak = 21 
+  const gyanStreak = 21
   const totalLearningHours = 87
   const certificatesEarned = 0
   const ranking = 345
@@ -116,7 +149,7 @@ export default function Dashboard() {
         { name: 'Security Policies and Procedures', status: 'not-started' },
         { name: 'Incident Response and Forensics', status: 'not-started' },
       ]
-    },{
+    }, {
       name: 'Cloud Computing',
       description: 'Learn to design, deploy, and manage cloud-based solutions and services.',
       modules: [
@@ -131,30 +164,25 @@ export default function Dashboard() {
 
   const [selectedPath, setSelectedPath] = useState(learningPaths[0])
 
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <IconFidgetSpinner className='animate-spin w-12 min-h-screen mx-auto' />
+        <Footer />
+      </>
+    );
+  }
+
   return (
+    <SignedIn>
     <div className="min-h-screen bg-[#f7f9fa] p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center">
-          <Image
-            src={logo}
-            alt="Shiksha Setu Logo"
-            width={200}
-            height={50}
-            className="mr-4"
-          />
-          <div>
-            <h1 className="text-3xl font-bold text-[#1c1d1f]">Shiksha Setu Dashboard</h1>
-            <p className="text-sm text-[#6a6f73]">विद्या तत्त्व ज्योतिस्मः - Knowledge is the essence of light</p>
-          </div>
-        </div>
-        <Badge variant="outline" className="text-[#a435f0] border-[#a435f0]">
-          Government of India Initiative
-        </Badge>
-      </div>
+
+      <Header handelSignOut={handelSignOut} avatar={user?.photoURL} />
 
       <Alert className="mb-6 bg-[#a435f0] text-white">
         <Gift className="h-4 w-4" />
-        <AlertTitle>Special Offer</AlertTitle>
+        <AlertTitle>Hi {user?.email}!</AlertTitle>
         <AlertDescription>{offer}</AlertDescription>
       </Alert>
 
@@ -347,8 +375,8 @@ export default function Dashboard() {
           <CardContent>
             <ul className="space-y-2">
               {learningPaths.map((path, index) => (
-                <li 
-                  key={index} 
+                <li
+                  key={index}
                   className={`cursor-pointer p-2 rounded ${selectedPath.name === path.name ? 'bg-[#a435f0] text-white' : 'hover:bg-gray-100'}`}
                   onClick={() => setSelectedPath(path)}
                 >
@@ -369,10 +397,10 @@ export default function Dashboard() {
               {selectedPath.modules.map((module, index) => (
                 <li key={index} className="flex items-center justify-between">
                   <span className="text-sm">{module.name}</span>
-                  <Badge 
+                  <Badge
                     variant={
                       module.status === 'completed' ? 'default' :
-                      module.status === 'in-progress' ? 'secondary' : 'outline'
+                        module.status === 'in-progress' ? 'secondary' : 'outline'
                     }
                   >
                     {module.status}
@@ -404,5 +432,6 @@ export default function Dashboard() {
         ))}
       </div>
     </div>
+    </SignedIn>
   )
 }
