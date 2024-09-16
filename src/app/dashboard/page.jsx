@@ -9,7 +9,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { BookOpen, Clock, Award, Zap, Users, Target, TrendingUp, Gift } from 'lucide-react'
-import logo from "@/app/assets/logo.png"
+import logo from "@/app/assets/logo.svg"
+
 
 export default function Dashboard() {
   // Existing dummy data
