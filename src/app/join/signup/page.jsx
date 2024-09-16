@@ -15,7 +15,7 @@ import { AlertCircle, ArrowLeft } from 'lucide-react'
 import Header from '@/app/components/Header'
 
 export default function SignUpPage() {
-  const [user, loading] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth) 
   const router = useRouter()
 
   const [email, setEmail] = useState('')
