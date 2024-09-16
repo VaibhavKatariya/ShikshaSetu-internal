@@ -56,6 +56,9 @@ export default function EnhancedTeacherDashboard() {
     { month: 'Apr', enrollments: 180 },
     { month: 'May', enrollments: 200 },
     { month: 'Jun', enrollments: 230 },
+    { month: 'Jul', enrollments: 180 },
+    { month: 'Aug', enrollments: 210 }
+
   ]
   const revenueBreakdown = [
     { course: 'Web Development', revenue: 30000 },
@@ -103,63 +106,104 @@ export default function EnhancedTeacherDashboard() {
 
   const [selectedTimeRange, setSelectedTimeRange] = useState('This Month')
 
-  const dashboardRef = useRef(null)
+//   const dashboardRef = useRef(null)
 
-  const handleExportData = async () => {
-    if (!dashboardRef.current) return
+//   const handleExportData = async () => {
+//     if (!dashboardRef.current) return
 
-    const pdf = new jsPDF('p', 'mm', 'a4')
-    const pdfWidth = pdf.internal.pageSize.getWidth()
-    const pdfHeight = pdf.internal.pageSize.getHeight()
+//     const pdf = new jsPDF('p', 'mm', 'a4')
+//     const pdfWidth = pdf.internal.pageSize.getWidth()
+//     const pdfHeight = pdf.internal.pageSize.getHeight()
 
-    // Add title
-    pdf.setFontSize(20)
-    pdf.text('Teacher Analytics Report', pdfWidth / 2, 15, { align: 'center' })
+//     // Add title
+//     pdf.setFontSize(20)
+//     pdf.text('Teacher Analytics Report', pdfWidth / 2, 15, { align: 'center' })
 
-    // Add summary data
-    pdf.setFontSize(12)
-    pdf.text(`Total Students: ${totalStudents}`, 20, 30)
-    pdf.text(`Total Courses: ${totalCourses}`, 20, 40)
-    pdf.text(`Total Revenue: ₹${totalRevenue.toLocaleString()}`, 20, 50)
-    pdf.text(`Course Completion Rate: ${courseCompletionRate}%`, 20, 60)
+//     // Add summary data
+//     pdf.setFontSize(12)
+//     pdf.text(`Total Students: ${totalStudents}`, 20, 30)
+//     pdf.text(`Total Courses: ${totalCourses}`, 20, 40)
+//     pdf.text(`Total Revenue: ₹${totalRevenue.toLocaleString()}`, 20, 50)
+//     pdf.text(`Course Completion Rate: ${courseCompletionRate}%`, 20, 60)
 
-    // Capture and add charts
-    const chartElements = dashboardRef.current.querySelectorAll('.recharts-wrapper')
-    let yOffset = 70
+//     // Capture and add charts
+//     const chartElements = dashboardRef.current.querySelectorAll('.recharts-wrapper')
+//     let yOffset = 70
 
-    for (let i = 0; i < chartElements.length; i++) {
-      const chart = chartElements[i]
-      const canvas = await html2canvas(chart)
-      const imgData = canvas.toDataURL('image/png')
+//     for (let i = 0; i < chartElements.length; i++) {
+//       const chart = chartElements[i]
+//       const canvas = await html2canvas(chart)
+//       const imgData = canvas.toDataURL('image/png')
       
-      if (yOffset + 60 > pdfHeight) {
-        pdf.addPage()
-        yOffset = 20
-      }
+//       if (yOffset + 60 > pdfHeight) {
+//         pdf.addPage()
+//         yOffset = 20
+//       }
 
-      pdf.addImage(imgData, 'PNG', 20, yOffset, 170, 60)
-      yOffset += 70
+//       pdf.addImage(imgData, 'PNG', 20, yOffset, 170, 60)
+//       yOffset += 70
+//     }
+
+//     // Add tables
+//     pdf.addPage()
+//     pdf.autoTable({
+//       head: [['Course', 'Completion Rate', 'Engagement']],
+//       body: courseAnalysis.map(course => [course.name, `${course.completionRate}%`, `${course.engagement}%`]),
+//       startY: 20,
+//     })
+
+//     pdf.addPage()
+//     pdf.autoTable({
+//       head: [['Feedback', 'Count']],
+//       body: commonFeedback.map(feedback => [feedback.comment, feedback.count]),
+//       startY: 20,
+//     })
+
+//     // Save the PDF
+//     pdf.save('teacher_analytics.pdf')
+//   }
+
+const handleExportData = () => {
+    // Combine all the data into a single object
+    const exportData = {
+      totalStudents,
+      totalCourses,
+      totalRevenue,
+      studentPurchases,
+      feedbackDistribution,
+      courseAnalysis,
+      studentEngagement,
+      teacherRanking,
+      teacherRating,
+      studentEnrollmentTrends,
+      revenueBreakdown,
+      commonFeedback,
+      teacherSkills,
+      upcomingDeadlines,
+      studentPerformance,
+      courseCompletionRate,
     }
 
-    // Add tables
-    pdf.addPage()
-    pdf.autoTable({
-      head: [['Course', 'Completion Rate', 'Engagement']],
-      body: courseAnalysis.map(course => [course.name, `${course.completionRate}%`, `${course.engagement}%`]),
-      startY: 20,
-    })
+    // Convert the data to a JSON string
+    const jsonString = JSON.stringify(exportData, null, 2)
 
-    pdf.addPage()
-    pdf.autoTable({
-      head: [['Feedback', 'Count']],
-      body: commonFeedback.map(feedback => [feedback.comment, feedback.count]),
-      startY: 20,
-    })
+    // Create a Blob with the JSON data
+    const blob = new Blob([jsonString], { type: 'application/json' })
 
-    // Save the PDF
-    pdf.save('teacher_analytics.pdf')
+    // Create a temporary URL for the Blob
+    const url = URL.createObjectURL(blob)
+
+    // Create a temporary anchor element and trigger the download
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'teacher_analytics.json'
+    document.body.appendChild(a)
+    a.click()
+
+    // Clean up
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
-
    
 
   
@@ -581,7 +625,7 @@ export default function EnhancedTeacherDashboard() {
         </div>
         <div className="flex space-x-2">
           <Button variant="outline" onClick={handleExportData}>
-            <Download className="mr-2 h-4 w-4" /> Export PDF
+            <Download className="mr-2 h-4 w-4" /> Export Data
           </Button>
           <Button>
             <PieChartIcon className="mr-2 h-4 w-4" /> Customize Widgets
