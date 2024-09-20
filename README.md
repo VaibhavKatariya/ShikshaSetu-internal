@@ -1,8 +1,8 @@
-# 🎓 SIH Project: Learning Dashboard for Students and Teachers
+# 🎓 SIH Internal Hackathon: SikshaSetu Learning Dashboard
 
 ## 🌟 Overview
 
-This project is a user-friendly **learning dashboard** designed for both students and teachers. It helps instructors manage educational resources and allows real-time tracking of student progress. We’ve followed essential **UX principles** to ensure a smooth and effective experience for all users.
+This repository, **SikshaSetu-Internal**, is developed for the **SIH Internal Hackathon**. It presents a user-friendly **learning dashboard** designed for both students and teachers. The dashboard helps instructors manage educational resources and enables real-time tracking of student progress. We've followed essential **UX principles** to ensure a smooth and effective experience for all users.
 
 ### 📜 Problem Statement
 
